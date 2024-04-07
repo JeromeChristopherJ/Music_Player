@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from datetime import date
 from music.models import Song,WatchLater
 #from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from music.forms import LoginForm, RegistrationForm
 
 # def custom_login(request):
@@ -46,7 +46,7 @@ def login(request):
             user = authenticate(username=username, password=password)
             print("Done")
             if user:
-                login(request, user)
+                login(request)
                 return redirect('album_list') 
             else:
                 form.add_error(None, 'Invalid username or password.')
@@ -103,3 +103,6 @@ def album_list(request):
 def logout(request):
     logout(request)
     return redirect('album_list')
+
+def about(request):
+  return render(request, 'music/about.html')

@@ -1,144 +1,11 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Albums</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f8f6f6;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #6bc7e6;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .header-buttons {
-            display: flex;
-            gap: 10px;
-        }
-
-        .login-btn, .register-btn, .search-btn {
-            padding: 8px 12px;
-            background-color: #333;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .search-box {
-            padding: 6px 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            width: 200px;
-        }
-
-        .album {
-            margin-bottom: 30px;
-            padding: 20px;
-            border-radius: 10px;
-            background-color: #999;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
-        }
-
-        .album:hover {
-            transform: translateY(-5px);
-        }
-
-        .album-header h2 {
-            margin-top: 0;
-            font-size: 24px;
-        }
-
-        .artist, .release-date {
-            font-size: 14px;
-            color: #0c0c0c;
-            margin-bottom: 10px;
-        }
-
-        .track-list {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .track-list li {
-            font-size: 16px;
-            color: #000000;
-            margin-bottom: 5px;
-        }
-
-        .length {
-            color: #999;
-            font-style: italic;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>Albums</h1>
-            <div class="header-buttons">
-                <button class="login-btn" onclick="location.href='/login/'">Login</button>
-                <button class="register-btn" onclick="location.href='/register/'">Register</button>
-                
-                
-                <div>
-                    <input type="text" class="search-box" placeholder="Search...">
-                    <button class="search-btn">Search</button>
-                </div>
-            </div>
-        </div>
-        
-        {% for album in albums %}
-        <div class="album">
-            <div class="album-header">
-                <h2>{{ album.title }}</h2>
-                <p class="artist">by {{ album.artist }}</p>
-                <p class="release-date">Released on {{ album.release_date }}</p>
-            </div>
-            <ul class="track-list">
-                {% for track in album.tracks.all %}
-                <li>{{ track.title }} <span class="length">({{ track.length_seconds }}s)</span></li>
-                {% endfor %}
-            </ul>
-        </div>
-        {% empty %}
-        <p>No albums found.</p>
-        {% endfor %}
-    </div>
-</body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Music_Player</title>
+  <title>Rhythmix</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #1f2937;
       color: #fff;
       margin: 0;
@@ -151,11 +18,20 @@
       justify-content: space-between;
       align-items: center;
     }
-    nav a {
+    nav a, button {
       color: #fff;
       text-decoration: none;
       font-size: 1.2rem;
       margin-right: 20px;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 5px;
+      background-color: #4b5563;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    nav a:hover, button:hover {
+      background-color: #6b7280;
     }
     h1, p {
       text-align: center;
@@ -199,6 +75,7 @@
     songcard h3 {
       margin: 0;
       font-size: 1.2rem;
+      color: #fff;
     }
     songcard button {
       background-color: transparent;
@@ -229,13 +106,14 @@
 </head>
 <body>
   <nav>
-    <a href="{% url 'album_list' %}">VibeShift</a>
+    <h1>Rhythmix</h1>
+    <button onclick="location.href='/about/'">About Us</button>
     {% if user.is_authenticated %}
       <a href="{% url 'watchlater' %}">{{ user.username }}</a>
       <a href="{% url 'logout' %}">Logout</a>
     {% else %}
-      <a href="{% url 'login' %}">Login</a>
-      <a href="{% url 'register' %}">Register</a>
+      <button onclick="location.href='/login/'">Login</button>
+      <button onclick="location.href='/register/'">Register</button>
     {% endif %}
   </nav>
 

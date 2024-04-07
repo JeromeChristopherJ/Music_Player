@@ -28,6 +28,16 @@
         "album": "Joker",
         "song_file": "audio/joker.mp3"
       }
+    },
+    {
+      "model": "music.song",
+      "pk": 4,
+      "fields": {
+        "title": "Interstellar Theme",
+        "artist": "Hans Zimmer",
+        "album": "Interstellar",
+        "song_file": "audio/Interstellar-Theme.mp3"
+      }
     }
   ]
   

@@ -6,8 +6,8 @@ class User(AbstractUser):
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=100)
 
-User._meta.get_field('groups').remote_field.related_name = 'custom_user_groups'
-User._meta.get_field('user_permissions').remote_field.related_name = 'custom_user_permissions'
+# User._meta.get_field('groups').remote_field.related_name = 'custom_user_groups'
+# User._meta.get_field('user_permissions').remote_field.related_name = 'custom_user_permissions'
 
 # class Album(models.Model):
 #     title = models.CharField(max_length=100)

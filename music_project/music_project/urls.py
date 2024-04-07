@@ -39,7 +39,7 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('register/', views.register, name='register'),
     path('logout/', views.logout, name='logout'),
-    #path('about/', views.about, name='about'),
+    path('about/', views.about, name='about'),
     path('watchlater/', views.watch_later_list, name='watchlater'),
     path('addtowatchlater/<int:song_id>/', views.add_to_watch_later, name='addtowatchlater')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.SEARCH_URL, document_root=settings.SEARCH_ROOT)
