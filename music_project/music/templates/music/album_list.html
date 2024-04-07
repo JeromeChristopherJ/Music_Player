@@ -61,40 +61,52 @@
     button[type="submit"] svg {
       vertical-align: middle;
     }
-    songcard {
+    .songcards-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+    .songcard {
       background-color: #333; 
       padding: 20px;
       border-radius: 10px;
-      margin-bottom: 20px;
+      margin: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+      width: 700px;
+      height: 250px;
     }
-    songcard div {
+    .songcard:hover {
+      transform: translateY(-2px);
+    }
+    .songcard div {
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
-    songcard h3 {
+    .songcard h3 {
       margin: 0;
-      font-size: 1.2rem;
+      font-size: 1rem;
       color: #fff;
     }
-    songcard button {
+    .songcard button {
       background-color: transparent;
       border: none;
       cursor: pointer;
     }
-    songcard button svg {
+    .songcard button svg {
       fill: #fff;
-      width: 24px;
-      height: 24px;
+      width: 20px;
+      height: 20px;
     }
-    songcard audio {
+    .songcard audio {
       width: 100%;
       margin-top: 10px;
     }
-    songcard form {
+    .songcard form {
       margin-top: 10px;
     }
-    songcard button[type="submit"] {
+    .songcard button[type="submit"] {
       background-color: #4299e1;
       color: #fff;
       padding: 8px 16px;
@@ -128,9 +140,9 @@
       </button>
     </form>
 
-    <div>
+    <div class="songcards-container">
       {% for song in songs %}
-      <songcard>
+      <div class="songcard">
         <div>
           <h3>{{ song.title }} - {{ song.artist }}</h3>
           <button id="playButton{{ song.id }}" type="button">
@@ -155,18 +167,18 @@
           </button>
         </form>
         {% endif %}
-      </songcard>
+      </div>
       {% endfor %}
     </div>
   </div>
 </body>
 <script>
-  const songCards = Array.from(document.getElementsByTagName('songcard'));
+  const songCards = Array.from(document.getElementsByClassName('songcard'));
   let index = 0;
   songCards.forEach((songCard) => {
     index++;
     const songCardId = index;
-    const playButton = songCard.querySelector(".playButton"+index);
+    const playButton = songCard.querySelector("#playButton" + songCardId);
     const audioElement = document.getElementById(`audioElement${songCardId}`);
 
     playButton.addEventListener("click", () => {
