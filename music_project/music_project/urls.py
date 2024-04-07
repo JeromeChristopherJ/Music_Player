@@ -17,6 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from music import views
+from music_project import settings
+from django.conf.urls.static import static
+
 # urlpatterns = [
 #     path('admin/', admin.site.urls),
 #     path('music/', include('music.urls')),
@@ -39,4 +42,4 @@ urlpatterns = [
     #path('about/', views.about, name='about'),
     path('watchlater/', views.watch_later_list, name='watchlater'),
     path('addtowatchlater/<int:song_id>/', views.add_to_watch_later, name='addtowatchlater')
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.SEARCH_URL, document_root=settings.SEARCH_ROOT)
