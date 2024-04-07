@@ -3,30 +3,30 @@
       "model": "music.song",
       "pk": 1,
       "fields": {
-        "title": "Avengers Theme",
-        "artist": "Alan Silvestri",
-        "album": "Avengers Assemble",
-        "song_file": "audio/avengers.mp3"
+        "title": "Eye of the Tiger",
+        "artist": "Survivor",
+        "album": "Rockey",
+        "song_file": "audio/18 Survivor - Eye of the Tiger.mp3"
       }
     },
     {
       "model": "music.song",
       "pk": 2,
       "fields": {
-        "title": "We will rock you",
-        "artist": "Queen",
-        "album": "News of the World",
-        "song_file": "audio/rock.mp3"
+        "title": "Perfect",
+        "artist": "Ed Sheeran",
+        "album": "Divide",
+        "song_file": "audio/Perfect.mp3"
       }
     },
     {
       "model": "music.song",
       "pk": 3,
       "fields": {
-        "title": "Joker BGM",
-        "artist": "Hildur Guðnadóttir",
-        "album": "Joker",
-        "song_file": "audio/joker.mp3"
+        "title": "Falling in love with you",
+        "artist": "Elvis Presley",
+        "album": "Pop 'til You Drop!",
+        "song_file": "audio/Can-T-Help-Falling-In-Love.mp3"
       }
     },
     {

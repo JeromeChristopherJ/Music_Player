@@ -1,26 +1,9 @@
 from django.shortcuts import render, redirect
 from datetime import date
 from music.models import Song,WatchLater
-#from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, authenticate, logout
 from music.forms import LoginForm, RegistrationForm
 
-# def custom_login(request):
-#     if request.method == 'POST':
-#         form = AuthenticationForm(request, data=request.POST)
-#         if form.is_valid():
-#             username = form.cleaned_data.get('username')
-#             password = form.cleaned_data.get('password')
-#             user = authenticate(username=username, password=password)
-#             if user is not None:
-#                 login(request, user)
-#                 return redirect('album_list')  # Redirect to the album_list page after login
-#             else:
-#                 # Invalid credentials, display alert message
-#                 return render(request, 'registration/login.html', {'form': form, 'invalid': True})
-#     else:
-#         form = AuthenticationForm()
-#     return render(request, 'login.html', {'form': form})
 def add_to_watch_later(request, song_id):
     if request.method == 'POST':
         user = request.user  
@@ -37,7 +20,7 @@ def watch_later_list(request):
     context = {'watch_later_songs': watch_later_songs}
     return render(request, 'music/watchlater.html', context)
 
-def login(request):
+def login_(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -46,23 +29,13 @@ def login(request):
             user = authenticate(username=username, password=password)
             print("Done")
             if user:
-                login(request)
+                login(request,user)
                 return redirect('album_list') 
             else:
                 form.add_error(None, 'Invalid username or password.')
     else:
         form = LoginForm()
     return render(request, 'music/login.html', {'form': form})
-
-# def register(request):
-#     if request.method == 'POST':
-#         form = UserCreationForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('login')  # Redirect to the login page after successful registration
-#     else:
-#         form = UserCreationForm()
-#     return render(request, 'registration/register.html', {'form': form})
 
 def register(request):
     if request.method == 'POST':
@@ -73,10 +46,6 @@ def register(request):
     else:
         form = RegistrationForm()
     return render(request, 'music/register.html', {'form': form})
-
-# def logout_view(request):
-#     logout(request)
-#     return redirect('home')
 
 def album_list(request):
   songs = Song.objects.all()
@@ -96,11 +65,7 @@ def album_list(request):
   context = {'songs': songs, 'search_query': search_query, 'current_year': date.today().year, 'watch_later': watch_later_list}
   return render(request, 'music/album_list.html', context)
 
-
-# def album_list(request):
-#     albums = Album.objects.all()
-#     return render(request, 'music/album_list.html', {'albums': albums})
-def logout(request):
+def logout_(request):
     logout(request)
     return redirect('album_list')
 

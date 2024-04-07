@@ -20,25 +20,13 @@ from music import views
 from music_project import settings
 from django.conf.urls.static import static
 
-# urlpatterns = [
-#     path('admin/', admin.site.urls),
-#     path('music/', include('music.urls')),
-#     path('', views.album_list, name='home'),
-#     path('search/', views.album_list, name='search'),
-#     # path('accounts/login/', custom_login, name='login'), 
-#     path('login/', views.login_view, name='login'),
-#     path('register/', views.register_view, name='register'), 
-#     path('accounts/', include('django.contrib.auth.urls')),  
-#     # path('register/', register, name='register'),
-# ]
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #path('', include('music.urls')),
     path('', views.album_list, name='album_list'),
     path('search/', views.album_list, name='search'),
-    path('login/', views.login, name='login'),
+    path('login/', views.login_, name='login'),
     path('register/', views.register, name='register'),
-    path('logout/', views.logout, name='logout'),
+    path('logout/', views.logout_, name='logout'),
     path('about/', views.about, name='about'),
     path('watchlater/', views.watch_later_list, name='watchlater'),
     path('addtowatchlater/<int:song_id>/', views.add_to_watch_later, name='addtowatchlater')
