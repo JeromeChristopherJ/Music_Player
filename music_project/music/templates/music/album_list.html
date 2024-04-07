@@ -1,0 +1,307 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Albums</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f6f6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #6bc7e6;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .login-btn, .register-btn, .search-btn {
+            padding: 8px 12px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .search-box {
+            padding: 6px 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 200px;
+        }
+
+        .album {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #999;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .album:hover {
+            transform: translateY(-5px);
+        }
+
+        .album-header h2 {
+            margin-top: 0;
+            font-size: 24px;
+        }
+
+        .artist, .release-date {
+            font-size: 14px;
+            color: #0c0c0c;
+            margin-bottom: 10px;
+        }
+
+        .track-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .track-list li {
+            font-size: 16px;
+            color: #000000;
+            margin-bottom: 5px;
+        }
+
+        .length {
+            color: #999;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Albums</h1>
+            <div class="header-buttons">
+                <button class="login-btn" onclick="location.href='/login/'">Login</button>
+                <button class="register-btn" onclick="location.href='/register/'">Register</button>
+                
+                
+                <div>
+                    <input type="text" class="search-box" placeholder="Search...">
+                    <button class="search-btn">Search</button>
+                </div>
+            </div>
+        </div>
+        
+        {% for album in albums %}
+        <div class="album">
+            <div class="album-header">
+                <h2>{{ album.title }}</h2>
+                <p class="artist">by {{ album.artist }}</p>
+                <p class="release-date">Released on {{ album.release_date }}</p>
+            </div>
+            <ul class="track-list">
+                {% for track in album.tracks.all %}
+                <li>{{ track.title }} <span class="length">({{ track.length_seconds }}s)</span></li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% empty %}
+        <p>No albums found.</p>
+        {% endfor %}
+    </div>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Music_Player</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #1f2937;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+    nav {
+      background-color: #1f2937;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.2rem;
+      margin-right: 20px;
+    }
+    h1, p {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    input[type="text"] {
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      margin-right: 10px;
+      width: 300px;
+    }
+    button[type="submit"] {
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: none;
+      background-color: #4b5563;
+      color: #fff;
+      cursor: pointer;
+    }
+    button[type="submit"] svg {
+      vertical-align: middle;
+    }
+    songcard {
+      background-color: #374151;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    songcard div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    songcard h3 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+    songcard button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+    }
+    songcard button svg {
+      fill: #fff;
+      width: 24px;
+      height: 24px;
+    }
+    songcard audio {
+      width: 100%;
+      margin-top: 10px;
+    }
+    songcard form {
+      margin-top: 10px;
+    }
+    songcard button[type="submit"] {
+      background-color: #4299e1;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="{% url 'album_list' %}">VibeShift</a>
+    {% if user.is_authenticated %}
+      <a href="{% url 'watchlater' %}">{{ user.username }}</a>
+      <a href="{% url 'logout' %}">Logout</a>
+    {% else %}
+      <a href="{% url 'login' %}">Login</a>
+      <a href="{% url 'register' %}">Register</a>
+    {% endif %}
+  </nav>
+
+  <div>
+    <h1>Music Player</h1>
+    <p>Listen to your favorite songs</p>
+    <form action="{% url 'search' %}" method="get">
+      <input type="text" name="query" placeholder="Search ...">
+      <button type="submit">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg>
+      </button>
+    </form>
+
+    <div>
+      {% for song in songs %}
+      <songcard>
+        <div>
+          <h3>{{ song.title }} - {{ song.artist }}</h3>
+          <button id="playButton{{ song.id }}" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM9.5 5v6l6-3z" /></svg>
+          </button>
+          <a href="{{ song.song_file }}" download="{{ song.title }}.mp3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383"/></svg>
+          </a>
+        </div>
+        <p>{{ song.album }}</p>
+        <audio id="audioElement{{ song.id }}" controls>
+          <source src="{{ song.song_file }}" type="audio/mpeg" />
+          Your browser does not support the audio element.
+        </audio>
+        {% if song not in watch_later %}
+        <form action="{% url 'addtowatchlater' song.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit">
+            Add to Watch Later
+          </button>
+        </form>
+        {% endif %}
+      </songcard>
+      {% endfor %}
+    </div>
+  </div>
+</body>
+<script>
+  const songCards = Array.from(document.getElementsByTagName('songcard'));
+  let index = 0;
+  songCards.forEach((songCard) => {
+    index++;
+    const songCardId = index;
+    const playButton = songCard.querySelector(".playButton"+index);
+    const audioElement = document.getElementById(`audioElement${songCardId}`);
+
+    playButton.addEventListener("click", () => {
+      const currentAudioElement = document.querySelector("audio[controls]:not([paused])");
+      if (currentAudioElement && currentAudioElement !== audioElement) {
+        currentAudioElement.pause();
+      }
+      if (audioElement.paused) {
+        audioElement.play();
+      } else {
+        audioElement.pause();
+      }
+    });
+  });
+</script>
+</html>

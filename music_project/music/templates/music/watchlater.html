@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Watch Later</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav {
+      background-color: #333;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #fff;
+    }
+
+    nav button, nav a {
+      background: none;
+      border: none;
+      color: #fff;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 5px 10px;
+      margin: 0 5px;
+    }
+
+    nav button:hover, nav a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    h1 {
+      color: #333;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    p {
+      color: #333;
+    }
+
+    .empty-list-message {
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <button onclick="location.href = ''">Home</button>
+      
+    {% if user.is_authenticated %}
+      <a href="">{{ user.username }}</a>
+      <a href="{% url 'logout' %}">Logout</a>
+    {% else %}
+      <a href="{% url 'login' %}">Login</a>
+      <a href="{% url 'register' %}">Register</a>
+    {% endif %}
+  </nav>
+
+  <main>
+    <h1>Watch Later List</h1>
+
+    <ul>
+      {% for song in watch_later_songs %}
+      <li>
+        <a>{{ song.song.title }}</a> - {{ song.song.artist }}
+      </li>
+      {% endfor %}
+      {% if not watch_later_songs %}
+        <p class="empty-list-message">Watch Later list is empty.</p>
+      {% endif %}
+    </ul>
+  </main>
+</body>
+</html>
